@@ -31,7 +31,7 @@
 void print_usage_and_exit()
 {
   printf("Usage: up3dtranscode machinetype input.gcode output.umc nozzleheight [a_factor%%] [vmax_factor%%] [junction]\n\n");
-  printf("          machinetype:  mini / classic / plus / box / Cetus\n");
+  printf("          machinetype:  mini / mini2 / classic / plus / box / Cetus\n");
   printf("          input.gcode:  g-code file from slic3r/cura/simplify\n");
   printf("          output.umc:   up machine code file which will be generated\n");
   printf("          nozzleheight: nozzle distance from bed (e.g. 123.45)\n");
@@ -44,26 +44,31 @@ void print_usage_and_exit()
 int main(int argc, char *argv[])
 {
   bool power_off = true;
-  
+
   if( 5 > argc ||  8 < argc )
     print_usage_and_exit();
 
   switch( argv[1][0] )
   {
-    case 'm': //mini
-      memcpy( &settings, &settings_mini, sizeof(settings) );
+    // TODO: Support both mini and mini2
+    case 'm': //mini 2
+      memcpy( &settings, &settings_mini2, sizeof(settings) );
       break;
+
+    /*case 'm': //mini*/
+    /*  memcpy( &settings, &settings_mini, sizeof(settings) );*/
+    /*  break;*/
 
     case 'c': //classic
     case 'p': //plus
       memcpy( &settings, &settings_classic_plus, sizeof(settings) );
       break;
-  
+
     case 'b': //box
       memcpy( &settings, &settings_box, sizeof(settings) );
       break;
-      
-    case 'C': //cetus  
+
+    case 'C': //cetus
       memcpy( &settings, &settings_cetus, sizeof(settings) );
       power_off = false;
       break;
@@ -72,7 +77,7 @@ int main(int argc, char *argv[])
       printf("ERROR: Uknown machine type: %s\n\n",argv[1] );
       print_usage_and_exit();
   }
-  
+
   if (6 <= argc)
   {
     double factor;
@@ -114,7 +119,7 @@ int main(int argc, char *argv[])
     settings.junction_deviation = junction;
     //printf(";use junction %.5f\n", junction);
   }
-  
+
   double nozzle_height;
   if( 1 != sscanf(argv[4],"%lf", &nozzle_height) )
   {
