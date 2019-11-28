@@ -1,7 +1,7 @@
 /*
   up3dconf.h for UP3DTranscoder
   M. Stohn 2016
-  
+
   This is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -28,7 +28,7 @@
 
 #define N_AXIS 3 // Number of axes (X,Y,A)
 
-#define X_AXIS 0 // Axis indexing value. 
+#define X_AXIS 0 // Axis indexing value.
 #define Y_AXIS 1
 #define A_AXIS 2
 
@@ -62,6 +62,7 @@ typedef struct {
 extern settings_t settings;
 
 extern settings_t settings_mini;
+extern settings_t settings_mini2;
 extern settings_t settings_classic_plus;
 extern settings_t settings_box;
 extern settings_t settings_cetus;
